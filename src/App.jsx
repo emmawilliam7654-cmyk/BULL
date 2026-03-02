@@ -1,4 +1,5 @@
 import Nav from './components/Nav.jsx'
+import ScrollProgress from './components/ScrollProgress.jsx'
 import Hero from './components/Hero.jsx'
 import Features from './components/Features.jsx'
 import Tokenomics from './components/Tokenomics.jsx'
@@ -11,6 +12,7 @@ import './App.css'
 function App() {
   return (
     <div className="app">
+      <ScrollProgress />
       <Nav />
       <main>
         <Hero />

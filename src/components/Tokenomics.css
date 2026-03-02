@@ -7,6 +7,32 @@
   background: transparent;
 }
 
+[data-theme='light'] .tokenomics__chart {
+  background: rgba(209, 250, 229, 0.95);
+  border: 1px solid rgba(4, 120, 87, 0.4);
+  box-shadow: 0 2px 16px rgba(4, 120, 87, 0.12), 0 0 0 1px rgba(4, 120, 87, 0.12);
+}
+
+[data-theme='light'] .tokenomics__ca-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(209, 250, 229, 0.9)
+  );
+  border-color: rgba(4, 120, 87, 0.45);
+  box-shadow:
+    0 4px 24px rgba(4, 120, 87, 0.12),
+    0 0 0 1px rgba(4, 120, 87, 0.15);
+}
+
+[data-theme='light'] .tokenomics__ca-card:hover {
+  border-color: rgba(4, 120, 87, 0.6);
+  box-shadow:
+    0 12px 40px rgba(4, 120, 87, 0.18),
+    0 0 24px rgba(4, 120, 87, 0.12),
+    0 0 0 1px rgba(4, 120, 87, 0.25);
+}
+
 .tokenomics__inner {
   max-width: 800px;
   margin: 0 auto;
@@ -21,11 +47,50 @@
   color: var(--text);
 }
 
-.tokenomics__sub {
+/* Hero tagline — Simple. Fair. No surprises. */
+.tokenomics__hero-text {
   text-align: center;
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.tokenomics__tagline {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 4vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  background: linear-gradient(
+    135deg,
+    var(--text) 0%,
+    var(--text-muted) 40%,
+    var(--accent) 70%,
+    var(--accent-dim) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 15%, transparent);
+  animation: tokenomics-shimmer 8s ease-in-out infinite;
+}
+
+@keyframes tokenomics-shimmer {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+[data-theme='light'] .tokenomics__tagline {
+  background: linear-gradient(
+    135deg,
+    #022c22 0%,
+    #064e3b 40%,
+    #047857 70%,
+    #065f46 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .tokenomics__chart {
@@ -58,49 +123,84 @@
   text-align: center;
 }
 
-.tokenomics__ca {
-  margin-top: 2rem;
-  background: var(--black-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem 2rem;
+/* Contract Address card — premium glass-style */
+.tokenomics__ca-card {
+  margin-top: 0;
   position: relative;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.25s, box-shadow 0.25s;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--black-card) 92%, var(--accent) 8%),
+    color-mix(in srgb, var(--black-elevated) 96%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--border) 80%, var(--accent) 20%);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 255, 65, 0.06),
+    inset 0 1px 0 color-mix(in srgb, var(--accent) 8%, transparent);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-.tokenomics__ca::before {
+.tokenomics__ca-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 32px color-mix(in srgb, var(--accent) 12%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.tokenomics__ca-glow {
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    color-mix(in srgb, var(--accent) 18%, transparent) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.tokenomics__ca-content {
+  position: relative;
+  padding: 2rem 2.25rem;
+}
+
+.tokenomics__ca-content::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.6;
-}
-
-.tokenomics__ca:hover {
-  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent) 20%,
+    var(--accent) 80%,
+    transparent 100%
+  );
+  opacity: 0.7;
 }
 
 .tokenomics__ca-label {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.75rem;
+  font-weight: 800;
   color: var(--text-muted);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
 }
 
 .tokenomics__ca-coming-soon {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
   color: var(--text-muted);
   font-style: italic;
   margin: 0;
+  letter-spacing: 0.02em;
 }
 
 .tokenomics__ca-row {
@@ -189,6 +289,42 @@
   justify-content: center;
 }
 
+/* Bottom toast — "Copied" notification */
+.tokenomics__toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--black);
+  background: linear-gradient(135deg, var(--accent-dim), var(--accent));
+  border-radius: 12px;
+  box-shadow:
+    0 8px 32px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  z-index: 10000;
+  letter-spacing: 0.04em;
+}
+
+.tokenomics__toast-icon {
+  display: inline-flex;
+  color: var(--black);
+}
+
+[data-theme='light'] .tokenomics__toast {
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #fff;
+  box-shadow:
+    0 8px 32px rgba(4, 120, 87, 0.4),
+    0 0 0 1px rgba(4, 120, 87, 0.3);
+}
+
 @media (max-width: 600px) {
   .tokenomics {
     padding: 3rem 1rem 4rem;
@@ -198,6 +334,10 @@
     padding: 1.5rem;
   }
 
+  .tokenomics__ca-content {
+    padding: 1.5rem 1.25rem;
+  }
+
   .tokenomics__ca-row {
     flex-direction: column;
     align-items: stretch;
@@ -205,5 +345,13 @@
 
   .tokenomics__ca-copy {
     width: 100%;
+  }
+
+  .tokenomics__toast {
+    bottom: 1.5rem;
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    justify-content: center;
   }
 }

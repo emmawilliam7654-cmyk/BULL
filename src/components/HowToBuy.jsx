@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
+import { motion } from 'motion/react'
 import './HowToBuy.css'
 
 const steps = [
@@ -26,6 +27,20 @@ const SUBTITLE = 'Three steps. No hopium. Just $BULL.'
 const TYPEWRITER_SPEED = 55
 const CURSOR_BLINK_MS = 520
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 36, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 22,
+    },
+  },
+}
+
 function HowToBuy() {
   const [visible, setVisible] = useState(false)
   const [subtitleIndex, setSubtitleIndex] = useState(0)
@@ -43,14 +58,12 @@ function HowToBuy() {
     return () => observer.disconnect()
   }, [])
 
-  /* Typewriter: when section is visible, reveal subtitle char by char */
   useEffect(() => {
     if (!visible || subtitleIndex >= SUBTITLE.length) return
     const t = setTimeout(() => setSubtitleIndex((i) => i + 1), TYPEWRITER_SPEED)
     return () => clearTimeout(t)
   }, [visible, subtitleIndex])
 
-  /* Cursor blink */
   useEffect(() => {
     const id = setInterval(() => setShowCursor((c) => !c), CURSOR_BLINK_MS)
     return () => clearInterval(id)
@@ -79,12 +92,25 @@ function HowToBuy() {
           </p>
         </div>
 
-        <div className={`howtobuy__steps ${visible ? 'howtobuy__steps--visible' : ''}`}>
+        <motion.div
+          className="howtobuy__steps"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px', amount: 0.2 }}
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.05,
+              },
+            },
+          }}
+        >
           {steps.map((step, i) => (
-            <article
+            <motion.article
               key={step.num}
               className="howtobuy__card"
-              style={{ '--i': i }}
+              variants={cardVariants}
             >
               <div className="howtobuy__card-glow" aria-hidden="true" />
               <span className="howtobuy__prompt" aria-hidden="true">
@@ -100,9 +126,9 @@ function HowToBuy() {
                   <span className="howtobuy__connector-dot" />
                 </span>
               )}
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
 
         <p className="howtobuy__footer-line">
           <span className="howtobuy__footer-prompt">&gt;</span> no_hopium.exe — running

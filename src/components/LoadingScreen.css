@@ -35,8 +35,8 @@
 
 [data-theme='light'] .loading-screen__grid {
   background-image:
-    linear-gradient(rgba(5, 150, 105, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(5, 150, 105, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(4, 120, 87, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4, 120, 87, 0.18) 1px, transparent 1px);
 }
 
 @keyframes loading-grid-pulse {
@@ -63,8 +63,9 @@
 }
 
 [data-theme='light'] .loading-screen__chart-wrap {
-  background: var(--black-elevated);
-  box-shadow: 0 0 24px var(--accent-glow);
+  background: rgba(209, 250, 229, 0.95);
+  border-color: rgba(4, 120, 87, 0.4);
+  box-shadow: 0 0 28px rgba(4, 120, 87, 0.25), 0 2px 12px rgba(4, 120, 87, 0.12);
 }
 
 .loading-screen__chart {
@@ -90,11 +91,21 @@
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 5vw, 2.25rem);
   font-weight: 800;
-  color: var(--text);
   letter-spacing: 0.15em;
   margin-bottom: 0.25rem;
   text-align: center;
-  text-shadow: 0 0 30px var(--accent-glow);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 50%, var(--accent) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: loading-title-shine 4s ease-in-out infinite;
+  text-shadow: 0 0 40px var(--accent-glow), 0 0 20px var(--gold-glow);
+}
+
+@keyframes loading-title-shine {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 .loading-screen__tagline {
@@ -115,11 +126,18 @@
 .loading-screen__progress {
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  background: linear-gradient(90deg, var(--accent-dim), var(--accent), var(--gold));
+  background-size: 200% 100%;
   border-radius: 4px;
   transform-origin: left;
   transform: scaleX(0);
-  box-shadow: 0 0 12px var(--accent-glow);
+  box-shadow: 0 0 16px var(--accent-glow), 0 0 8px var(--gold-glow);
+  animation: loading-progress-glow 2s ease-in-out infinite;
+}
+
+@keyframes loading-progress-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; filter: brightness(1.1); }
 }
 
 /* Decorative candlesticks in background */
@@ -151,4 +169,15 @@
 @keyframes loading-candle {
   0%, 100% { transform: scaleY(0.7); opacity: 0.8; }
   50% { transform: scaleY(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-screen__title {
+    animation: none;
+    background-position: 0% center;
+  }
+
+  .loading-screen__progress {
+    animation: none;
+  }
 }

@@ -1,0 +1,32 @@
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  background: rgba(0, 255, 65, 0.08);
+  transform-origin: left;
+}
+
+.scroll-progress__bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform-origin: left;
+}
+
+[data-theme='light'] .scroll-progress {
+  background: rgba(4, 120, 87, 0.15);
+}
+
+[data-theme='light'] .scroll-progress__bar {
+  background: linear-gradient(90deg, #047857, var(--gold));
+  box-shadow: 0 0 16px rgba(4, 120, 87, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
+  }
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion, useInView } from 'motion/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Autoplay, EffectCoverflow, Thumbs } from 'swiper/modules'
 import 'swiper/css'
@@ -17,37 +18,15 @@ function cloudinaryImageUrl(rawUrl, opts = {}) {
 }
 
 const MEDIA_ITEMS_RAW = [
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421109/2_gpeqtg.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421078/1_rfldfo.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421078/33_lv4qip.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421075/41_gtczoo.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421075/40_faajx2.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421075/32_hky3xd.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421075/35_qtupm4.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421074/34_sxsjvq.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421074/31_melk7a.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421073/30_al0ecw.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421072/27_eowhfq.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421070/28_wkm6ak.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421069/26_hfdava.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421069/8_icwiwz.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421068/13_nadacy.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421067/23_ukfefy.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421065/20_erji8y.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421065/21_wy9gfg.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421064/22_nsh6g1.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421066/24_xn0yo4.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421063/7_txzx9e.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421063/19_n9rriv.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421062/14_ukffa1.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421060/10_qu2syr.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421062/15_wdpizd.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421063/16_ccgb8n.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421058/11_urgse7.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421058/9_hlcg3r.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421057/5_ufy8rl.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421056/3_oo3tvy.png' },
-  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421056/4_s29qqa.png' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/33_hx8rth.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/3_pl5bxd.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/11_lmvcwc.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/8_yrbq5q.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/6_g1xlp8.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/WhatsApp_Image_2026-03-02_at_10.03.12_AM_ddimr9.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428115/7_stfxhr.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428114/4_eaomwt.jpg' },
+  { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772428114/2_usufn6.jpg' },
 ]
 // Display: optimized for slides (800px) and lightbox (full res). Thumb URLs built per-use.
 const MEDIA_ITEMS = MEDIA_ITEMS_RAW.map((item) =>
@@ -56,44 +35,17 @@ const MEDIA_ITEMS = MEDIA_ITEMS_RAW.map((item) =>
     : item
 )
 
-const VIDEO_ITEMS = [
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346344/1_sjrx7x.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346343/4_grexpt.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346341/zz_qfg6ih.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346339/2_ir0czi.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346338/3_hx8obr.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346336/nn_o7bdnl.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346336/WhatsApp_Video_2026-03-01_at_10.17.26_AM_xcmvhn.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346336/s_f0lte7.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346335/mmy_qwtdd8.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346335/xcx_rscelu.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346334/qq_ajbdjj.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346333/v_x6lihx.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346330/aa_h5dly4.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346329/msma_mmynsp.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346328/nh_biymnr.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346327/lk_wswc0y.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346326/d_ldnf4d.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346325/kls_pkeoy5.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346324/a_rktpqn.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346323/e_fkvvqx.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346323/aaa_m1v8d0.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346321/mks_rzuspg.mp4',
-  'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346317/lo_ism9my.mp4',
-].map((src, i) => ({ id: `video-${i}`, src }))
-
 const MOBILE_BREAKPOINT = 768
 const MOBILE_GALLERY_LIMIT = 5
 
 function Gallery() {
   const [lightbox, setLightbox] = useState(null)
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
-  const [visible, setVisible] = useState(false)
+  const sectionRef = useRef(null)
+  const visible = useInView(sectionRef, { once: true, amount: 0.1 })
   const [isMobile, setIsMobile] = useState(false)
-  const lightboxVideoRef = useRef(null)
 
   const displayMediaItems = isMobile ? MEDIA_ITEMS.slice(0, MOBILE_GALLERY_LIMIT) : MEDIA_ITEMS
-  const displayVideoItems = isMobile ? VIDEO_ITEMS.slice(0, MOBILE_GALLERY_LIMIT) : VIDEO_ITEMS
 
   useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`)
@@ -117,31 +69,35 @@ function Gallery() {
     return () => links.forEach((link) => link.remove())
   }, [isMobile])
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true) },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    )
-    const el = document.querySelector('.gallery')
-    if (el) observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!lightbox || !lightboxVideoRef.current) return
-    if (lightbox.type === 'video') lightboxVideoRef.current.play().catch(() => {})
-    return () => {
-      if (lightboxVideoRef.current) lightboxVideoRef.current.pause()
-    }
-  }, [lightbox])
-
   return (
-    <section id="gallery" className={`gallery ${visible ? 'gallery--visible' : ''}`}>
+    <section ref={sectionRef} id="gallery" className={`gallery ${visible ? 'gallery--visible' : ''}`}>
       <div className="gallery__inner">
-        <h2 className="gallery__heading">Gallery</h2>
-        <p className="gallery__sub">The $BULL vibe.</p>
+        <motion.h2
+          className="gallery__heading"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px', amount: 0.3 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 24 }}
+        >
+          Gallery
+        </motion.h2>
+        <motion.p
+          className="gallery__sub"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px', amount: 0.2 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 24, delay: 0.05 }}
+        >
+          The $BULL vibe.
+        </motion.p>
 
-        <div className="gallery__slider-wrap">
+        <motion.div
+          className="gallery__slider-wrap"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px', amount: 0.15 }}
+          transition={{ type: 'spring', stiffness: 80, damping: 22, delay: 0.1 }}
+        >
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectCoverflow, Thumbs]}
             effect="coverflow"
@@ -224,9 +180,15 @@ function Gallery() {
             </svg>
           </button>
           <div className="gallery__pagination" />
-        </div>
+        </motion.div>
 
-        <div className="gallery__thumbs-wrap">
+        <motion.div
+          className="gallery__thumbs-wrap"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px', amount: 0.15 }}
+          transition={{ type: 'spring', stiffness: 80, damping: 22, delay: 0.2 }}
+        >
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={10}
@@ -261,37 +223,7 @@ function Gallery() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-
-        <div className={`gallery__videos ${visible ? 'gallery__videos--visible' : ''}`}>
-          <h3 className="gallery__videos-heading">Videos</h3>
-          <p className="gallery__videos-sub">The $BULL vibe.</p>
-          <div className="gallery__grid">
-            {displayVideoItems.map((video, i) => (
-              <button
-                key={video.id}
-                type="button"
-                className="gallery__item"
-                style={{ '--i': i }}
-                onClick={() => setLightbox({ type: 'video', src: video.src })}
-                aria-label="Play video"
-              >
-                <span className="gallery__item-frame" />
-                <video
-                  src={visible ? video.src : undefined}
-                  data-src={video.src}
-                  className="gallery__video"
-                  muted
-                  loop
-                  playsInline
-                  preload={visible ? 'metadata' : 'none'}
-                  aria-hidden
-                />
-                <span className="gallery__play-icon" aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </div>
 
       {lightbox && (
@@ -300,27 +232,17 @@ function Gallery() {
           onClick={() => setLightbox(null)}
           role="dialog"
           aria-modal="true"
-          aria-label={lightbox.type === 'video' ? 'Video player' : 'Image viewer'}
+          aria-label="Image viewer"
         >
           <button type="button" className="gallery__lightbox-close" aria-label="Close" />
           <div className="gallery__lightbox-content" onClick={(e) => e.stopPropagation()}>
-            {lightbox.type === 'image' ? (
-              <img
-                src={cloudinaryImageUrl(lightbox.src, { width: 1200 })}
-                alt="Gallery"
-                className="gallery__lightbox-img"
-                onClick={(e) => e.stopPropagation()}
-                decoding="async"
-              />
-            ) : (
-              <video
-                ref={lightboxVideoRef}
-                src={lightbox.src}
-                controls
-                className="gallery__lightbox-video"
-                onClick={(e) => e.stopPropagation()}
-              />
-            )}
+            <img
+              src={cloudinaryImageUrl(lightbox.src, { width: 1200 })}
+              alt="Gallery"
+              className="gallery__lightbox-img"
+              onClick={(e) => e.stopPropagation()}
+              decoding="async"
+            />
           </div>
         </div>
       )}

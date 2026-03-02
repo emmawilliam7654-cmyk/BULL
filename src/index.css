@@ -1,5 +1,5 @@
 :root {
-  /* Doomer meme theme: phosphor green, cold blacks */
+  /* Bullish theme: phosphor green + moon gold */
   --black: #0a0c0a;
   --black-soft: #0d100d;
   --black-elevated: #121612;
@@ -9,28 +9,33 @@
   --text-muted: #6b7a6b;
   --accent: #00ff41;
   --accent-dim: #00cc33;
-  --accent-glow: rgba(0, 255, 65, 0.15);
+  --accent-glow: rgba(0, 255, 65, 0.2);
+  --gold: #fbbf24;
+  --gold-dim: #f59e0b;
+  --gold-glow: rgba(251, 191, 36, 0.25);
   --font-display: 'Orbitron', sans-serif;
   --font-body: 'JetBrains Mono', monospace;
   --radius: 8px;
   --radius-lg: 12px;
-  /* Theme switch transition */
   --theme-duration: 0.55s;
   --theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Light theme: greenish bullish — paper + mint surfaces, forest text, emerald accent */
+/* Light theme: crypto bullish — rich green surfaces, deep forest text, strong green accent */
 [data-theme='light'] {
-  --black: #ecfdf5;
-  --black-soft: #d1fae5;
-  --black-elevated: #f0fdf4;
-  --black-card: rgba(236, 253, 245, 0.94);
-  --border: rgba(5, 150, 105, 0.2);
-  --text: #0f2922;
-  --text-muted: #065f46;
-  --accent: #059669;
-  --accent-dim: #047857;
-  --accent-glow: rgba(5, 150, 105, 0.18);
+  --black: #d1fae5;
+  --black-soft: #a7f3d0;
+  --black-elevated: #d1fae5;
+  --black-card: rgba(209, 250, 229, 0.97);
+  --border: rgba(4, 120, 87, 0.4);
+  --text: #022c22;
+  --text-muted: #064e3b;
+  --accent: #047857;
+  --accent-dim: #065f46;
+  --accent-glow: rgba(4, 120, 87, 0.4);
+  --gold: #b45309;
+  --gold-dim: #92400e;
+  --gold-glow: rgba(180, 83, 9, 0.3);
 }
 
 *,
@@ -71,7 +76,8 @@ body {
 }
 
 [data-theme='light'] body {
-  background-color: #e0f2e9;
+  background: linear-gradient(165deg, #d1fae5 0%, #a7f3d0 20%, #6ee7b7 45%, #34d399 70%, #10b981 100%);
+  background-color: #a7f3d0;
   background-image: url('/paper-bg.png');
   background-size: cover;
   background-position: center;
@@ -85,7 +91,7 @@ body {
   pointer-events: none;
 }
 
-/* Doomer CRT scanlines — fade out in light theme */
+/* CRT scanlines — fade out in light theme */
 body::before {
   content: '';
   position: fixed;
@@ -102,7 +108,7 @@ body::before {
   opacity: 1;
 }
 
-/* Doomer grain overlay — fade out in light theme */
+/* Grain overlay — fade out in light theme */
 body::after {
   content: '';
   position: fixed;
@@ -114,7 +120,7 @@ body::after {
 }
 
 /* Subtle scanline flicker */
-@keyframes doomer-flicker {
+@keyframes scanline-flicker {
   0%, 100% { opacity: 1; }
   92% { opacity: 1; }
   93% { opacity: 0.98; }
@@ -123,7 +129,7 @@ body::after {
   98% { opacity: 1; }
 }
 .app {
-  animation: doomer-flicker 8s linear infinite;
+  animation: scanline-flicker 8s linear infinite;
 }
 
 #root {
@@ -146,7 +152,7 @@ button {
   cursor: pointer;
 }
 
-/* Global $BULL ticker — phosphor glow, standout everywhere */
+/* Global $BULL ticker — bullish glow, standout everywhere */
 .ticker,
 .nav__ticker,
 .footer__ticker {
@@ -155,9 +161,10 @@ button {
   color: var(--accent);
   letter-spacing: 0.12em;
   text-shadow:
-    0 0 14px rgba(0, 255, 65, 0.55),
-    0 0 28px rgba(0, 255, 65, 0.28),
-    0 0 42px rgba(0, 255, 65, 0.14);
+    0 0 18px rgba(0, 255, 65, 0.65),
+    0 0 36px rgba(0, 255, 65, 0.35),
+    0 0 56px rgba(0, 255, 65, 0.18),
+    0 0 2px rgba(251, 191, 36, 0.2);
   transition: text-shadow 0.35s ease, color 0.35s ease;
 }
 
@@ -166,25 +173,28 @@ button {
 .footer__logo:hover .footer__ticker {
   color: #33ff66;
   text-shadow:
-    0 0 18px rgba(0, 255, 65, 0.75),
-    0 0 36px rgba(0, 255, 65, 0.4),
-    0 0 56px rgba(0, 255, 65, 0.22);
+    0 0 22px rgba(0, 255, 65, 0.85),
+    0 0 44px rgba(0, 255, 65, 0.5),
+    0 0 64px rgba(0, 255, 65, 0.28),
+    0 0 4px var(--gold-glow);
 }
 
 [data-theme='light'] .ticker,
 [data-theme='light'] .nav__ticker,
 [data-theme='light'] .footer__ticker {
-  color: #047857;
+  color: #065f46;
   text-shadow:
-    0 1px 2px rgba(5, 150, 105, 0.35),
-    0 2px 8px rgba(5, 150, 105, 0.2);
+    0 1px 2px rgba(4, 120, 87, 0.5),
+    0 2px 10px rgba(4, 120, 87, 0.4),
+    0 0 24px rgba(4, 120, 87, 0.25);
 }
 
 [data-theme='light'] .ticker:hover,
 [data-theme='light'] .nav__logo:hover .nav__ticker,
 [data-theme='light'] .footer__logo:hover .footer__ticker {
-  color: #059669;
+  color: #047857;
   text-shadow:
-    0 2px 4px rgba(5, 150, 105, 0.4),
-    0 4px 12px rgba(5, 150, 105, 0.25);
+    0 2px 4px rgba(4, 120, 87, 0.6),
+    0 4px 14px rgba(4, 120, 87, 0.45),
+    0 0 32px rgba(4, 120, 87, 0.3);
 }

@@ -14,21 +14,22 @@
 }
 
 [data-theme='light'] .section-divider {
-  border-top-color: rgba(5, 150, 105, 0.2);
-  border-bottom-color: rgba(5, 150, 105, 0.2);
+  border-top: 1px solid rgba(4, 120, 87, 0.45);
+  border-bottom: 1px solid rgba(4, 120, 87, 0.45);
   background: linear-gradient(
     180deg,
-    rgba(5, 150, 105, 0.06) 0%,
+    rgba(4, 120, 87, 0.18) 0%,
     transparent 50%,
-    rgba(5, 150, 105, 0.06) 100%
+    rgba(4, 120, 87, 0.18) 100%
   );
 }
 
 [data-theme='light'] .section-divider__marquee-item {
-  color: var(--accent);
+  color: #065f46;
   text-shadow:
-    0 1px 2px rgba(5, 150, 105, 0.25),
-    0 2px 8px rgba(5, 150, 105, 0.18);
+    0 1px 2px rgba(4, 120, 87, 0.45),
+    0 2px 10px rgba(4, 120, 87, 0.35),
+    0 0 24px rgba(4, 120, 87, 0.2);
 }
 
 .section-divider__marquee-wrap {
@@ -56,7 +57,7 @@
 .section-divider__marquee {
   display: flex;
   width: max-content;
-  animation: section-divider-marquee 28s linear infinite;
+  animation: section-divider-marquee 22s linear infinite;
   transform: translateZ(0);
   will-change: transform;
 }
@@ -71,13 +72,14 @@
 .section-divider__marquee-item {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3.5vw, 2.25rem);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--accent);
   text-shadow:
-    0 0 16px rgba(0, 255, 65, 0.55),
-    0 0 32px rgba(0, 255, 65, 0.28),
-    0 0 48px rgba(0, 255, 65, 0.12);
+    0 0 20px rgba(0, 255, 65, 0.65),
+    0 0 40px rgba(0, 255, 65, 0.3),
+    0 0 60px rgba(0, 255, 65, 0.15),
+    0 0 2px var(--gold-glow);
   padding: 0.2rem 0.6rem;
   white-space: nowrap;
   flex-shrink: 0;

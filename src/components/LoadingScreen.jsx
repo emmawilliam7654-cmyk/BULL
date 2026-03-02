@@ -96,7 +96,7 @@ function LoadingScreen({ onComplete }) {
           </svg>
         </div>
         <h2 className="loading-screen__title">THE BULL</h2>
-        <p className="loading-screen__tagline">Charting the run…</p>
+        <p className="loading-screen__tagline">Bull run incoming…</p>
         <div className="loading-screen__progress-wrap">
           <div className="loading-screen__progress" ref={progressRef} />
         </div>

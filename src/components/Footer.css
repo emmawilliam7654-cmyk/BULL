@@ -15,12 +15,13 @@
 [data-theme='light'] .footer {
   background: linear-gradient(
     180deg,
-    rgba(236, 253, 245, 0.97) 0%,
-    rgba(209, 250, 229, 0.95) 50%,
-    rgba(220, 252, 231, 0.98) 100%
+    rgba(209, 250, 229, 0.98) 0%,
+    rgba(167, 243, 208, 0.97) 35%,
+    rgba(110, 231, 183, 0.95) 65%,
+    rgba(167, 243, 208, 0.98) 100%
   );
-  border-top: 1px solid rgba(5, 150, 105, 0.2);
-  box-shadow: 0 -1px 0 rgba(5, 150, 105, 0.1) inset;
+  border-top: 1px solid rgba(4, 120, 87, 0.45);
+  box-shadow: 0 -1px 0 rgba(4, 120, 87, 0.2) inset, 0 -4px 24px rgba(4, 120, 87, 0.12);
 }
 
 /* Layered background effects */
@@ -70,15 +71,15 @@
 }
 
 [data-theme='light'] .footer__bg-glow--1 {
-  background: radial-gradient(circle, rgba(5, 150, 105, 0.14) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(4, 120, 87, 0.32) 0%, transparent 65%);
 }
 
 [data-theme='light'] .footer__bg-glow--2 {
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(6, 95, 70, 0.22) 0%, transparent 70%);
 }
 
 [data-theme='light'] .footer__bg-glow--3 {
-  background: radial-gradient(circle, rgba(5, 150, 105, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(4, 120, 87, 0.22) 0%, transparent 70%);
 }
 
 .footer__bg-glow--1 {
@@ -143,8 +144,8 @@
 
 [data-theme='light'] .footer__bg-grid {
   background-image:
-    linear-gradient(rgba(5, 150, 105, 0.14) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(5, 150, 105, 0.14) 1px, transparent 1px);
+    linear-gradient(rgba(4, 120, 87, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4, 120, 87, 0.2) 1px, transparent 1px);
   mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 75%);
 }
@@ -170,14 +171,14 @@
   background: conic-gradient(
     from 0deg at 50% 50%,
     transparent 0deg,
-    rgba(5, 150, 105, 0.05) 30deg,
+    rgba(4, 120, 87, 0.08) 30deg,
     transparent 60deg,
-    rgba(16, 185, 129, 0.04) 120deg,
+    rgba(6, 95, 70, 0.06) 120deg,
     transparent 180deg,
-    rgba(5, 150, 105, 0.05) 240deg,
+    rgba(4, 120, 87, 0.08) 240deg,
     transparent 300deg
   );
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 @keyframes footer-rays-rotate {
@@ -200,7 +201,7 @@
 [data-theme='light'] .footer__bg-shine {
   background: linear-gradient(
     180deg,
-    rgba(5, 150, 105, 0.1) 0%,
+    rgba(4, 120, 87, 0.15) 0%,
     transparent 35%,
     transparent 100%
   );
@@ -263,17 +264,17 @@
 [data-theme='light'] .footer__logo {
   background: linear-gradient(
     135deg,
-    #065f46 0%,
+    #064e3b 0%,
     #047857 30%,
     #059669 50%,
     #047857 70%,
-    #065f46 100%
+    #064e3b 100%
   );
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(0 1px 2px rgba(5, 150, 105, 0.25))
-    drop-shadow(0 2px 4px rgba(5, 150, 105, 0.15));
+  filter: drop-shadow(0 1px 2px rgba(4, 120, 87, 0.35))
+    drop-shadow(0 2px 4px rgba(4, 120, 87, 0.2));
 }
 
 .footer__logo.footer__logo--animate {
@@ -298,13 +299,13 @@
 @keyframes bull-glow-light {
   0%, 100% {
     background-position: 0% 50%;
-    filter: drop-shadow(0 1px 2px rgba(5, 150, 105, 0.25))
-      drop-shadow(0 2px 4px rgba(5, 150, 105, 0.15));
+    filter: drop-shadow(0 1px 2px rgba(4, 120, 87, 0.35))
+      drop-shadow(0 2px 4px rgba(4, 120, 87, 0.2));
   }
   50% {
     background-position: 100% 50%;
-    filter: drop-shadow(0 2px 4px rgba(5, 150, 105, 0.35))
-      drop-shadow(0 4px 8px rgba(5, 150, 105, 0.2));
+    filter: drop-shadow(0 2px 4px rgba(4, 120, 87, 0.45))
+      drop-shadow(0 4px 8px rgba(4, 120, 87, 0.25));
   }
 }
 
@@ -321,7 +322,7 @@
 }
 
 [data-theme='light'] .footer__tagline {
-  color: #065f46;
+  color: #064e3b;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
@@ -336,7 +337,7 @@
 }
 
 [data-theme='light'] .footer__copyright {
-  color: #047857;
+  color: #065f46;
   opacity: 0.9;
 }
 
@@ -372,9 +373,9 @@
 }
 
 [data-theme='light'] .footer__btn {
-  background: linear-gradient(180deg, #10b981 0%, var(--accent) 50%, var(--accent-dim) 100%);
+  background: linear-gradient(180deg, #059669 0%, #047857 40%, #065f46 70%, #064e3b 100%);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.35);
+  box-shadow: 0 4px 18px rgba(4, 120, 87, 0.45), 0 0 28px rgba(4, 120, 87, 0.2);
 }
 
 .footer__btn:hover {
@@ -383,7 +384,7 @@
 }
 
 [data-theme='light'] .footer__btn:hover {
-  box-shadow: 0 6px 24px rgba(5, 150, 105, 0.45);
+  box-shadow: 0 6px 28px rgba(4, 120, 87, 0.55), 0 0 36px rgba(4, 120, 87, 0.25);
 }
 
 .footer__link {
