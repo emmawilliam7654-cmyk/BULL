@@ -82,15 +82,30 @@ const VIDEO_ITEMS = [
   'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346317/lo_ism9my.mp4',
 ].map((src, i) => ({ id: `video-${i}`, src }))
 
+const MOBILE_BREAKPOINT = 768
+const MOBILE_GALLERY_LIMIT = 5
+
 function Gallery() {
   const [lightbox, setLightbox] = useState(null)
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [visible, setVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const lightboxVideoRef = useRef(null)
+
+  const displayMediaItems = isMobile ? MEDIA_ITEMS.slice(0, MOBILE_GALLERY_LIMIT) : MEDIA_ITEMS
+  const displayVideoItems = isMobile ? VIDEO_ITEMS.slice(0, MOBILE_GALLERY_LIMIT) : VIDEO_ITEMS
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`)
+    const handle = () => setIsMobile(mql.matches)
+    handle()
+    mql.addEventListener('change', handle)
+    return () => mql.removeEventListener('change', handle)
+  }, [])
 
   // Preload first few gallery images so they're ready when user scrolls (fast on Vercel)
   useEffect(() => {
-    const toPreload = MEDIA_ITEMS.filter((m) => m.type === 'image').slice(0, 3).map((m) => m.srcOptimized || m.src)
+    const toPreload = displayMediaItems.filter((m) => m.type === 'image').slice(0, 3).map((m) => m.srcOptimized || m.src)
     const links = toPreload.map((url) => {
       const link = document.createElement('link')
       link.rel = 'preload'
@@ -100,7 +115,7 @@ function Gallery() {
       return link
     })
     return () => links.forEach((link) => link.remove())
-  }, [])
+  }, [isMobile])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -162,7 +177,7 @@ function Gallery() {
             }}
             className="gallery__swiper"
           >
-            {MEDIA_ITEMS.map((item, i) => (
+            {displayMediaItems.map((item, i) => (
               <SwiperSlide key={`${item.type}-${i}`} className="gallery__slide">
                 <button
                   type="button"
@@ -222,7 +237,7 @@ function Gallery() {
             loop
             className="gallery__thumbs"
           >
-            {MEDIA_ITEMS.map((item, i) => (
+            {displayMediaItems.map((item, i) => (
               <SwiperSlide key={`thumb-${i}`} className="gallery__thumb">
                 {item.type === 'image' ? (
                   <img
@@ -252,7 +267,7 @@ function Gallery() {
           <h3 className="gallery__videos-heading">Videos</h3>
           <p className="gallery__videos-sub">The $BULL vibe.</p>
           <div className="gallery__grid">
-            {VIDEO_ITEMS.map((video, i) => (
+            {displayVideoItems.map((video, i) => (
               <button
                 key={video.id}
                 type="button"
