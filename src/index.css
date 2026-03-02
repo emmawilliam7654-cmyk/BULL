@@ -14,6 +14,9 @@
   --font-body: 'JetBrains Mono', monospace;
   --radius: 8px;
   --radius-lg: 12px;
+  /* Theme switch transition */
+  --theme-duration: 0.55s;
+  --theme-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Light theme: greenish bullish — paper + mint surfaces, forest text, emerald accent */
@@ -36,6 +39,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Smooth theme transition — applied only while switching */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition-duration: var(--theme-duration);
+  transition-timing-function: var(--theme-ease);
+  transition-property: background-color, color, border-color, box-shadow, text-shadow, fill, stroke, opacity;
 }
 
 html {
@@ -66,15 +79,13 @@ body {
   background-attachment: fixed;
 }
 
-[data-theme='light'] body::before {
-  background: transparent;
-}
-
+[data-theme='light'] body::before,
 [data-theme='light'] body::after {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Doomer CRT scanlines */
+/* Doomer CRT scanlines — fade out in light theme */
 body::before {
   content: '';
   position: fixed;
@@ -88,9 +99,10 @@ body::before {
   );
   pointer-events: none;
   z-index: 9998;
+  opacity: 1;
 }
 
-/* Doomer grain overlay */
+/* Doomer grain overlay — fade out in light theme */
 body::after {
   content: '';
   position: fixed;
@@ -98,6 +110,7 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
+  opacity: 1;
 }
 
 /* Subtle scanline flicker */
