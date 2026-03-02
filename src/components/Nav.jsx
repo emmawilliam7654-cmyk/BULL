@@ -75,7 +75,7 @@ function Nav() {
             )}
           </div>
           <a
-            href="https://twitter.com/i/communities/2027024448142938397"
+            href=""
             target="_blank"
             rel="noopener noreferrer"
             className="nav__x"
