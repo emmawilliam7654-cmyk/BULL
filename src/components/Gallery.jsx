@@ -8,7 +8,15 @@ import 'swiper/css/effect-coverflow'
 import 'swiper/css/thumbs'
 import './Gallery.css'
 
-const MEDIA_ITEMS = [
+// Cloudinary: optimized URLs for fast load on Vercel (smaller size, auto format/quality)
+function cloudinaryImageUrl(rawUrl, opts = {}) {
+  const { width = 800, quality = 'auto', format = 'auto' } = opts
+  if (!rawUrl || !rawUrl.includes('cloudinary.com')) return rawUrl
+  const insert = `w_${width},q_${quality},f_${format}/`
+  return rawUrl.replace('/image/upload/', `/image/upload/${insert}`)
+}
+
+const MEDIA_ITEMS_RAW = [
   { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421109/2_gpeqtg.png' },
   { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421078/1_rfldfo.png' },
   { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421078/33_lv4qip.png' },
@@ -40,8 +48,13 @@ const MEDIA_ITEMS = [
   { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421057/5_ufy8rl.png' },
   { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421056/3_oo3tvy.png' },
   { type: 'image', src: 'https://res.cloudinary.com/dep7dpjup/image/upload/v1772421056/4_s29qqa.png' },
-
 ]
+// Display: optimized for slides (800px) and lightbox (full res). Thumb URLs built per-use.
+const MEDIA_ITEMS = MEDIA_ITEMS_RAW.map((item) =>
+  item.type === 'image'
+    ? { ...item, srcOptimized: cloudinaryImageUrl(item.src, { width: 800 }) }
+    : item
+)
 
 const VIDEO_ITEMS = [
   'https://res.cloudinary.com/dep7dpjup/video/upload/v1772346344/1_sjrx7x.mp4',
@@ -74,6 +87,20 @@ function Gallery() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [visible, setVisible] = useState(false)
   const lightboxVideoRef = useRef(null)
+
+  // Preload first few gallery images so they're ready when user scrolls (fast on Vercel)
+  useEffect(() => {
+    const toPreload = MEDIA_ITEMS.filter((m) => m.type === 'image').slice(0, 3).map((m) => m.srcOptimized || m.src)
+    const links = toPreload.map((url) => {
+      const link = document.createElement('link')
+      link.rel = 'preload'
+      link.as = 'image'
+      link.href = url
+      document.head.appendChild(link)
+      return link
+    })
+    return () => links.forEach((link) => link.remove())
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -144,10 +171,24 @@ function Gallery() {
                   aria-label={item.type === 'video' ? 'Play video' : 'View image'}
                 >
                   {item.type === 'image' ? (
-                    <img src={item.src} alt={`Gallery ${i + 1}`} loading="lazy" />
+                    <img
+                      src={item.srcOptimized || item.src}
+                      alt={`Gallery ${i + 1}`}
+                      loading={i < 3 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      fetchPriority={i < 3 ? 'high' : undefined}
+                    />
                   ) : (
                     <>
-                      <video src={item.src} muted loop playsInline preload="metadata" aria-hidden />
+                      <video
+                        src={visible ? item.src : undefined}
+                        data-src={item.src}
+                        muted
+                        loop
+                        playsInline
+                        preload={visible ? 'metadata' : 'none'}
+                        aria-hidden
+                      />
                       <span className="gallery__play-overlay" aria-hidden="true" />
                     </>
                   )}
@@ -184,10 +225,21 @@ function Gallery() {
             {MEDIA_ITEMS.map((item, i) => (
               <SwiperSlide key={`thumb-${i}`} className="gallery__thumb">
                 {item.type === 'image' ? (
-                  <img src={item.src} alt="" loading="lazy" />
+                  <img
+                    src={cloudinaryImageUrl(item.src, { width: 150 })}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ) : (
                   <div className="gallery__thumb-video">
-                    <video src={item.src} muted playsInline preload="metadata" />
+                    <video
+                      src={visible ? item.src : undefined}
+                      data-src={item.src}
+                      muted
+                      playsInline
+                      preload={visible ? 'metadata' : 'none'}
+                    />
                     <span className="gallery__thumb-play" aria-hidden />
                   </div>
                 )}
@@ -211,12 +263,13 @@ function Gallery() {
               >
                 <span className="gallery__item-frame" />
                 <video
-                  src={video.src}
+                  src={visible ? video.src : undefined}
+                  data-src={video.src}
                   className="gallery__video"
                   muted
                   loop
                   playsInline
-                  preload="metadata"
+                  preload={visible ? 'metadata' : 'none'}
                   aria-hidden
                 />
                 <span className="gallery__play-icon" aria-hidden="true" />
@@ -237,7 +290,13 @@ function Gallery() {
           <button type="button" className="gallery__lightbox-close" aria-label="Close" />
           <div className="gallery__lightbox-content" onClick={(e) => e.stopPropagation()}>
             {lightbox.type === 'image' ? (
-              <img src={lightbox.src} alt="Gallery" className="gallery__lightbox-img" onClick={(e) => e.stopPropagation()} />
+              <img
+                src={cloudinaryImageUrl(lightbox.src, { width: 1200 })}
+                alt="Gallery"
+                className="gallery__lightbox-img"
+                onClick={(e) => e.stopPropagation()}
+                decoding="async"
+              />
             ) : (
               <video
                 ref={lightboxVideoRef}
