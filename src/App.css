@@ -1,0 +1,14 @@
+.app {
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--text);
+}
+
+[data-theme='light'] .app {
+  background: transparent;
+}
+
+.app main {
+  display: flex;
+  flex-direction: column;
+}

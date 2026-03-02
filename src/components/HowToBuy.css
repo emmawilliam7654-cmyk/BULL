@@ -1,0 +1,422 @@
+/* --- Section container: deep black, CRT vibe --- */
+.howtobuy {
+  padding: 5rem 1.25rem 6rem;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme='light'] .howtobuy {
+  background: transparent;
+}
+
+/* Scanlines overlay (doomer CRT) */
+.howtobuy__scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+[data-theme='light'] .howtobuy__scanlines {
+  opacity: 0.12;
+}
+
+/* Vignette */
+.howtobuy__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme='light'] .howtobuy__vignette {
+  background: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+}
+
+.howtobuy__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* --- Header: glitch heading + typewriter sub --- */
+.howtobuy__header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.howtobuy__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 3.75rem);
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  color: var(--text);
+  position: relative;
+}
+
+/* Glitch effect on "How to Buy" */
+.howtobuy__heading-text {
+  display: inline-block;
+  position: relative;
+  color: var(--accent);
+  text-shadow:
+    0 0 12px var(--accent-glow),
+    0 0 24px rgba(0, 255, 65, 0.2);
+  animation: howtobuy-glitch 6s ease-in-out infinite;
+}
+
+.howtobuy__heading-text::before,
+.howtobuy__heading-text::after {
+  content: 'How to Buy';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.howtobuy__heading-text::before {
+  color: rgba(0, 255, 65, 0.8);
+  animation: howtobuy-glitch-offset 6s ease-in-out infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  transform: translate(-2px, 0);
+}
+
+.howtobuy__heading-text::after {
+  color: rgba(255, 0, 80, 0.4);
+  animation: howtobuy-glitch-offset-2 6s ease-in-out infinite;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  transform: translate(2px, 0);
+}
+
+@keyframes howtobuy-glitch {
+  0%, 90%, 100% {
+    text-shadow:
+      0 0 12px var(--accent-glow),
+      0 0 24px rgba(0, 255, 65, 0.2);
+    transform: translate(0, 0);
+  }
+  92% {
+    text-shadow:
+      -2px 0 rgba(255, 0, 80, 0.3),
+      2px 0 var(--accent-glow);
+    transform: translate(-1px, 1px);
+  }
+  94% {
+    text-shadow:
+      2px 0 var(--accent),
+      -2px 0 rgba(0, 255, 65, 0.5);
+    transform: translate(1px, -1px);
+  }
+  96% {
+    text-shadow:
+      0 0 14px var(--accent-glow),
+      0 0 28px rgba(0, 255, 65, 0.25);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes howtobuy-glitch-offset {
+  0%, 90%, 100% { opacity: 0; transform: translate(-2px, 0); }
+  91% { opacity: 0.9; transform: translate(-4px, -1px); }
+  93% { opacity: 0; transform: translate(2px, 1px); }
+  95% { opacity: 0.7; transform: translate(-2px, 0); }
+}
+
+@keyframes howtobuy-glitch-offset-2 {
+  0%, 90%, 100% { opacity: 0; transform: translate(2px, 0); }
+  91% { opacity: 0.6; transform: translate(3px, 2px); }
+  94% { opacity: 0; transform: translate(-3px, -1px); }
+}
+
+.howtobuy__sub {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  font-family: var(--font-body);
+  min-height: 1.6em;
+}
+
+.howtobuy__sub-inner {
+  display: inline;
+}
+
+.howtobuy__cursor {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 700;
+  margin-left: 2px;
+  transition: opacity 0.12s ease;
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* --- Steps grid --- */
+.howtobuy__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.howtobuy__card {
+  position: relative;
+  background: var(--black-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  animation: howtobuy-card-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 0.15s);
+  animation-fill-mode: both;
+  overflow: hidden;
+}
+
+.howtobuy__steps--visible .howtobuy__card {
+  animation-name: howtobuy-card-in;
+}
+
+/* Card phosphor glow (subtle pulse) */
+.howtobuy__card-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgba(0, 255, 65, 0.06) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.howtobuy__card:hover {
+  border-color: rgba(0, 255, 65, 0.4);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 255, 65, 0.15),
+    0 0 30px rgba(0, 255, 65, 0.08);
+  transform: translateY(-6px);
+}
+
+.howtobuy__card:hover .howtobuy__card-glow {
+  opacity: 1;
+}
+
+[data-theme='light'] .howtobuy__card:hover {
+  border-color: rgba(5, 150, 105, 0.5);
+  box-shadow:
+    0 12px 40px rgba(4, 120, 87, 0.12),
+    0 0 0 1px rgba(5, 150, 105, 0.2);
+}
+
+/* Terminal-style prompt above step number */
+.howtobuy__prompt {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  opacity: 0.85;
+  margin-bottom: 0.6rem;
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.howtobuy__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+  background: var(--accent);
+  color: var(--black);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.35);
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+}
+
+.howtobuy__card:hover .howtobuy__num {
+  box-shadow: 0 0 28px rgba(0, 255, 65, 0.5);
+  transform: scale(1.05);
+}
+
+[data-theme='light'] .howtobuy__num {
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(5, 150, 105, 0.35);
+}
+
+.howtobuy__title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  font-family: var(--font-display);
+}
+
+.howtobuy__text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* Connector between cards (animated dot trail) */
+.howtobuy__connector {
+  position: absolute;
+  top: 50%;
+  right: -1.5rem;
+  width: 1.5rem;
+  height: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.howtobuy__connector-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  animation: howtobuy-dot-pulse 2s ease-in-out infinite;
+}
+
+.howtobuy__card:last-child .howtobuy__connector {
+  display: none;
+}
+
+@keyframes howtobuy-dot-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes howtobuy-card-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Footer terminal line */
+.howtobuy__footer-line {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.howtobuy__footer-prompt {
+  color: var(--accent);
+  margin-right: 0.35rem;
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .howtobuy__steps {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .howtobuy__connector {
+    display: none;
+  }
+
+  .howtobuy__card {
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    gap: 0 1.25rem;
+    align-items: start;
+  }
+
+  .howtobuy__prompt {
+    grid-column: 1 / -1;
+    margin-bottom: 0.25rem;
+  }
+
+  .howtobuy__num {
+    grid-row: 2 / 4;
+    margin-bottom: 0;
+  }
+
+  .howtobuy__title {
+    grid-column: 2;
+    grid-row: 2;
+    margin-bottom: 0.25rem;
+  }
+
+  .howtobuy__text {
+    grid-column: 2;
+    grid-row: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .howtobuy {
+    padding: 3.5rem 1rem 4.5rem;
+  }
+
+  .howtobuy__card {
+    padding: 1.5rem;
+  }
+
+  .howtobuy__footer-line {
+    font-size: 0.8rem;
+  }
+}
+
+/* Reduced motion: tone down glitch and animations */
+@media (prefers-reduced-motion: reduce) {
+  .howtobuy__heading-text {
+    animation: none;
+  }
+
+  .howtobuy__heading-text::before,
+  .howtobuy__heading-text::after {
+    animation: none;
+    display: none;
+  }
+
+  .howtobuy__cursor {
+    opacity: 1;
+  }
+
+  .howtobuy__connector-dot {
+    animation: none;
+  }
+
+  .howtobuy__card {
+    animation-duration: 0.3s;
+  }
+}
