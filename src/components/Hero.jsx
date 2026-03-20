@@ -42,7 +42,7 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.55 }}
           >
-            We&apos;re gonna make it. Buy the dip. Stare at the chart. Then green. To the moon.
+            We&apos;re gonna make it. Buy the dip. Stare at the chart. To the moon.
           </motion.p>
           <motion.div
             className="hero__actions"
